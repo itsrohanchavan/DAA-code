@@ -1,0 +1,17 @@
+def floyd_warshall(graph):
+    # Initialize distances
+    nodes = list(graph.keys())
+    dist = {i: {j: float('inf') for j in nodes} for i in nodes}
+
+    for i in nodes:
+        dist[i][i] = 0
+        for j in graph[i]:
+            dist[i][j] = graph[i][j]
+
+    # Core algorithm
+    for k in nodes:
+        for i in nodes:
+            for j in nodes:
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+
+    return dist
